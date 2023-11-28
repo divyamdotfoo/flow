@@ -8,10 +8,7 @@ export default function Navbar() {
       <div className=" flex items-center gap-2">
         <Button>Do something</Button>
         <Button size={"icon"} variant={"outline"}>
-          <Link
-            href={"https://github.com/divyamdotfoo/nextflow"}
-            target="_blank"
-          >
+          <Link href={"https://github.com/divyamdotfoo/flow"} target="_blank">
             <GithubIcon />
           </Link>
         </Button>
