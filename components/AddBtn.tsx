@@ -31,7 +31,7 @@ const AddBtnComponent = motion(
     );
   })
 );
-
+AddBtnComponent.displayName = "AddBtnComponent";
 export default function AddBtn() {
   return (
     <AddBtnComponent
