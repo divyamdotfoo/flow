@@ -5,7 +5,7 @@ import SeePreview from "./SeePreview";
 import AddBtn from "./AddBtn";
 export default function Navbar() {
   return (
-    <div className=" absolute flex items-start justify-between w-screen top-2 px-6">
+    <div className=" absolute flex items-start justify-between top-0 w-full px-6 py-2">
       <p className=" text-primary text-2xl font-bold tracking-wider">Flow</p>
       <div className=" flex items-start gap-3">
         <SeePreview />

@@ -3,19 +3,32 @@ import FlowNode from "./FlowNode";
 import { useCallback } from "react";
 import ReactFlow, { Background } from "reactflow";
 import "reactflow/dist/style.css";
-import { useReactFlowStore } from "@/store/reactFlow";
+import { RFState, useReactFlowStore } from "@/store/reactFlow";
 const nodeTypes = {
   flowNode: FlowNode,
 };
 
+const selector = (s: RFState) => {
+  return {
+    nodes: s.nodes,
+    edges: s.edges,
+    onEdgesChange: s.onEdgesChange,
+    onNodesChange: s.onNodesChange,
+    onConnect: s.onConnect,
+    setEdges: s.setEdges,
+    setFlowInstance: s.setFlowInstance,
+  };
+};
 export default function Flow() {
-  console.log("again");
-  const nodes = useReactFlowStore((s) => s.nodes);
-  const edges = useReactFlowStore((s) => s.edges);
-  const onEdgesChange = useReactFlowStore((s) => s.onEdgesChange);
-  const onNodesChange = useReactFlowStore((s) => s.onNodesChange);
-  const onConnect = useReactFlowStore((s) => s.onConnect);
-  const setEdges = useReactFlowStore((s) => s.setEdges);
+  const {
+    edges,
+    nodes,
+    onConnect,
+    onEdgesChange,
+    onNodesChange,
+    setEdges,
+    setFlowInstance,
+  } = useReactFlowStore(selector);
 
   const edgeClick = (eID: string) => {
     const otherEdges = edges.filter((z) => z.id !== eID);
@@ -28,8 +41,9 @@ export default function Flow() {
   return (
     <div className=" w-full h-full">
       <ReactFlow
+        onInit={(instance) => setFlowInstance(instance)}
         fitView
-        fitViewOptions={{ maxZoom: 1.3 }}
+        fitViewOptions={{ maxZoom: 1.2 }}
         nodes={nodes}
         nodeTypes={nodeTypes}
         edges={edges}

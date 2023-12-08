@@ -11,19 +11,26 @@ import {
   OnConnect,
   applyNodeChanges,
   applyEdgeChanges,
+  ReactFlowInstance,
 } from "reactflow";
 
 export const initialNodes = [
   {
     id: "idone",
     position: { x: 0, y: 0 },
-    data: { label: "This is a FlowNode alright?" },
+    data: { label: "Try clicking on this node" },
     type: "flowNode",
   },
   {
     id: "idtwo",
-    position: { x: 0, y: 100 },
-    data: { label: "This comes default with reactflow" },
+    position: { x: -100, y: 100 },
+    data: { label: "Click on any edge to animate it." },
+    type: "flowNode",
+  },
+  {
+    id: "idthree",
+    position: { x: 100, y: 100 },
+    data: { label: "Double click on any edge to remove it." },
     type: "flowNode",
   },
 ];
@@ -34,9 +41,15 @@ export const initialEdges: Edge[] = [
     target: "idtwo",
     sourceHandle: "bottom",
   },
+  {
+    id: "e1-3",
+    source: "idone",
+    target: "idthree",
+    sourceHandle: "bottom",
+  },
 ];
 
-type RFState = {
+export type RFState = {
   nodes: Node[];
   edges: Edge[];
   onNodesChange: OnNodesChange;
@@ -44,6 +57,9 @@ type RFState = {
   onConnect: OnConnect;
   addNode: (newNode: Node) => void;
   setEdges: (edges: Edge[]) => void;
+  setNodes: (nodes: Node[]) => void;
+  flowInstance: ReactFlowInstance | null;
+  setFlowInstance: (instance: ReactFlowInstance) => void;
 };
 
 export const useReactFlowStore = create<RFState>((set, get) => ({
@@ -53,6 +69,7 @@ export const useReactFlowStore = create<RFState>((set, get) => ({
     set((state) => ({ nodes: [...state.nodes, newNode] })),
 
   setEdges: (edges: Edge[]) => set((state) => ({ edges: edges })),
+  setNodes: (nodes: Node[]) => set((state) => ({ nodes: nodes })),
   onNodesChange: (changes: NodeChange[]) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),
@@ -67,5 +84,9 @@ export const useReactFlowStore = create<RFState>((set, get) => ({
     set({
       edges: addEdge(connection, get().edges),
     });
+  },
+  flowInstance: null,
+  setFlowInstance: (instance: ReactFlowInstance) => {
+    set({ flowInstance: instance });
   },
 }));

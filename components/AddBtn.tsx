@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import { useReactFlowStore } from "@/store/reactFlow";
+import { nanoid } from "nanoid";
 
 const AddBtnComponent = motion(
   forwardRef((props, ref: any) => {
@@ -12,7 +13,7 @@ const AddBtnComponent = motion(
     const handler = () => {
       console.log("i called");
       addNode({
-        id: crypto.randomUUID(),
+        id: nanoid(),
         position: { x: 250, y: 0 },
         data: { label: "Try editing this node" },
         type: "flowNode",
