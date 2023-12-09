@@ -62,3 +62,7 @@
 .react-flow__panel {
   display: none;
 }
+
+.token.operator {
+  background: none !important;
+}
